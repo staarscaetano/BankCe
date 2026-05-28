@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BankCe — Banque-se. Cresça.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #e38e33;
+  --purple: #b26ef1;
+  --olive: #9fb217;
+  --green: #7a3fa0;
+  --lime: #e38e33;
+  --lime-dim: #b87a28;
+  --bg: #0e0b12;
+  --bg2: #15101e;
+  --bg3: #1e1428;
+  --surface: #221530;
+  --surface2: #2a1a38;
+  --border: rgba(227,142,51,0.12);
+  --border2: rgba(227,142,51,0.22);
+  --text: #f2eef8;
+  --text2: #a898b8;
+  --text3: #7a5e90;
+  --red: #F25757;
+  --mint: #b26ef1;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 100px;
+}
+[data-theme="light"] {
+  --bg: #f5f0fc;
+  --bg2: #ece6f8;
+  --bg3: #dfd8f0;
+  --surface: #ffffff;
+  --surface2: #f8f4fe;
+  --border: rgba(179,110,241,0.12);
+  --border2: rgba(179,110,241,0.25);
+  --text: #0e0b12;
+  --text2: #5a3d72;
+  --text3: #8a6aaa;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;transition:background .4s,color .4s}
+::selection{background:var(--lime);color:#0e0b12}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--lime);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(14,11,18,.7);border-bottom:1px solid var(--border);transition:background .4s}
+[data-theme="light"] nav{background:rgba(245,240,252,.8)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--lime);letter-spacing:-.02em;cursor:pointer}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--lime);transition:width .3s}
+.nav-links a:hover{color:var(--lime)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;gap:.75rem;align-items:center}
+.btn-theme{background:none;border:1px solid var(--border2);color:var(--text2);padding:.45rem .9rem;border-radius:var(--radius-pill);cursor:pointer;font-size:.85rem;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-theme:hover{background:var(--surface);color:var(--text)}
+.btn-cta-sm{background:var(--lime);color:#0e0b12;padding:.5rem 1.25rem;border-radius:var(--radius-pill);border:none;cursor:pointer;font-size:.9rem;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-cta-sm:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(227,142,51,.3)}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;color:var(--text)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.25;animation:orb-float 8s ease-in-out infinite}
+.orb1{width:600px;height:600px;background:var(--green);top:-200px;left:-200px;animation-delay:0s}
+.orb2{width:400px;height:400px;background:var(--lime);bottom:-100px;right:-100px;animation-delay:-4s;opacity:.15}
+.orb3{width:300px;height:300px;background:var(--olive);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-2s;opacity:.1}
+@keyframes orb-float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-20px) scale(1.05)}}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.4}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-pill);padding:.4rem 1rem;font-size:.8rem;color:var(--lime);font-weight:600;margin-bottom:2rem;animation:fade-up .8s ease both}
+.hero-badge::before{content:'';width:8px;height:8px;background:var(--lime);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+h1.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:1;letter-spacing:-.04em;animation:fade-up .8s .1s ease both}
+h1.hero-title span{color:var(--lime)}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);color:var(--text2);max-width:500px;margin:1.5rem auto;line-height:1.7;animation:fade-up .8s .2s ease both}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fade-up .8s .3s ease both}
+.btn-primary{background:var(--lime);color:#0e0b12;padding:.85rem 2.5rem;border-radius:var(--radius-pill);border:none;cursor:pointer;font-size:1rem;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(227,142,51,.4)}
+.btn-outline{background:transparent;color:var(--text);padding:.85rem 2.5rem;border-radius:var(--radius-pill);border:1px solid var(--border2);cursor:pointer;font-size:1rem;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .25s}
+.btn-outline:hover{background:var(--surface);transform:translateY(-2px)}
+@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-phone{position:relative;z-index:1;margin-top:4rem;animation:fade-up .8s .5s ease both}
+.phone-frame{width:280px;height:560px;border-radius:36px;border:2px solid var(--border2);background:var(--bg2);overflow:hidden;position:relative;margin:0 auto;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.phone-screen{padding:1.5rem 1rem;height:100%;display:flex;flex-direction:column;gap:1rem}
+.phone-bar{display:flex;justify-content:space-between;align-items:center}
+.phone-greeting{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700}
+.phone-xp{background:var(--lime);color:#0e0b12;padding:.25rem .75rem;border-radius:var(--radius-pill);font-size:.75rem;font-weight:700;font-family:'Syne Mono',monospace}
+.property-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:1.25rem;text-align:center;flex-shrink:0}
+.prop-house{font-size:3rem;margin-bottom:.5rem;animation:house-bounce 3s ease-in-out infinite}
+@keyframes house-bounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.05)}}
+.prop-name{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--lime)}
+.prop-level{font-size:.75rem;color:var(--text3);margin:.25rem 0}
+.xp-bar-wrap{background:var(--bg3);border-radius:4px;height:6px;overflow:hidden;margin-top:.75rem}
+.xp-bar{height:100%;background:var(--lime);border-radius:4px;width:62%;animation:xp-grow 2s 1s ease both}
+@keyframes xp-grow{from{width:0}to{width:62%}}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;font-size:.7rem}
+.stat-label{color:var(--text3);margin-bottom:.25rem}
+.stat-val{font-family:'Syne Mono',monospace;font-size:.95rem;font-weight:600}
+.stat-val.up{color:var(--purple)}
+.stat-val.down{color:var(--red)}
+.ceelite-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;display:flex;gap:.75rem;align-items:flex-start}
+.ceelite-avatar{width:32px;height:32px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ceelite-text{font-size:.7rem;color:var(--text2);line-height:1.5}
+.ceelite-text strong{color:var(--lime);display:block;margin-bottom:.2rem}
+
+/* SECTIONS */
+section{padding:6rem 2rem;max-width:1200px;margin:0 auto}
+.section-label{font-size:.8rem;font-weight:600;color:var(--lime);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1rem}
+.section-sub{color:var(--text2);font-size:1.05rem;line-height:1.7;max-width:540px}
+
+/* ONBOARDING DEMO */
+.onboarding-section{padding:6rem 2rem}
+.onboarding-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.onboarding-phone{position:relative}
+.step-indicators{display:flex;gap:.5rem;margin-bottom:1.5rem;justify-content:center}
+.step-dot{width:8px;height:8px;border-radius:4px;background:var(--surface2);border:1px solid var(--border2);transition:all .4s;cursor:pointer}
+.step-dot.active{width:24px;background:var(--lime);border-color:var(--lime)}
+.onboarding-frame{width:300px;height:580px;border-radius:40px;border:2px solid var(--border2);background:var(--bg2);overflow:hidden;margin:0 auto;box-shadow:0 40px 80px rgba(0,0,0,.4);position:relative}
+.ob-screen{position:absolute;inset:0;padding:2rem 1.5rem;display:flex;flex-direction:column;opacity:0;transform:translateX(60px);transition:all .5s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.ob-screen.active{opacity:1;transform:translateX(0);pointer-events:auto}
+.ob-screen.exit{opacity:0;transform:translateX(-60px)}
+.ob-ceelite{display:flex;flex-direction:column;align-items:center;margin-bottom:1.5rem}
+.ce-avatar-big{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--orange));display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:.75rem;box-shadow:0 0 0 8px rgba(227,142,51,.1),0 0 0 16px rgba(227,142,51,.05)}
+.ce-bubble{background:var(--surface2);border:1px solid var(--border2);border-radius:16px 16px 16px 4px;padding:.75rem 1rem;font-size:.82rem;color:var(--text2);line-height:1.5}
+.ob-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem}
+.ob-input{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:.65rem 1rem;width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);outline:none;transition:border .2s}
+.ob-input:focus{border-color:var(--lime)}
+.ob-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.ob-pill{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-pill);padding:.4rem .85rem;font-size:.78rem;cursor:pointer;color:var(--text2);transition:all .2s}
+.ob-pill.sel{background:rgba(227,142,51,.15);border-color:var(--lime);color:var(--lime)}
+.ob-pill:hover{border-color:var(--lime-dim)}
+.ob-cards{display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
+.ob-card-opt{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:.75rem 1rem;cursor:pointer;display:flex;align-items:center;gap:.75rem;transition:all .2s}
+.ob-card-opt.sel{border-color:var(--lime);background:rgba(227,142,51,.08)}
+.ob-card-opt:hover{border-color:var(--lime-dim)}
+.ob-card-icon{font-size:1.4rem}
+.ob-card-text strong{display:block;font-size:.85rem;font-weight:600}
+.ob-card-text span{font-size:.75rem;color:var(--text3)}
+.ob-progress{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text3);margin-bottom:.5rem}
+.ob-prog-bar{background:var(--bg3);border-radius:4px;height:4px;overflow:hidden;margin-bottom:1.5rem}
+.ob-prog-fill{height:100%;background:var(--lime);border-radius:4px;transition:width .5s}
+.ob-next{background:var(--lime);color:#0e0b12;border:none;border-radius:var(--radius-pill);padding:.65rem;width:100%;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:auto;font-family:'DM Sans',sans-serif;transition:all .2s}
+.ob-next:hover{box-shadow:0 8px 24px rgba(227,142,51,.4)}
+.onboarding-info{display:flex;flex-direction:column;gap:2rem}
+.ob-info-item{display:flex;gap:1rem;align-items:flex-start;opacity:0;transform:translateX(20px);transition:all .5s}
+.ob-info-item.vis{opacity:1;transform:translateX(0)}
+.ob-info-num{width:40px;height:40px;border-radius:50%;background:rgba(227,142,51,.1);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--lime);flex-shrink:0}
+.ob-info-text strong{display:block;font-size:1rem;font-weight:600;margin-bottom:.25rem}
+.ob-info-text p{font-size:.9rem;color:var(--text2);line-height:1.6}
+
+/* FEATURES GRID */
+.features-section{padding:6rem 2rem;background:var(--bg2)}
+.features-wrap{max-width:1200px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:all .3s;position:relative;overflow:hidden;cursor:default}
+.feat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(227,142,51,.06) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+.feat-card:hover::before{opacity:1}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.feat-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.feat-card h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.feat-card p{font-size:.9rem;color:var(--text2);line-height:1.7}
+.feat-tag{display:inline-block;background:rgba(227,142,51,.12);color:var(--lime);border-radius:var(--radius-pill);padding:.2rem .6rem;font-size:.7rem;font-weight:600;margin-top:.75rem}
+
+/* DASHBOARD PREVIEW */
+.dashboard-section{padding:6rem 2rem}
+.dashboard-wrap{max-width:1200px;margin:0 auto}
+.dash-preview{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:3rem}
+.dash-topbar{background:var(--bg3);padding:1rem 1.5rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border)}
+.dash-dot{width:12px;height:12px;border-radius:50%}
+.dash-dot.r{background:#ff5f57}
+.dash-dot.y{background:#febc2e}
+.dash-dot.g{background:#28c840}
+.dash-url{background:var(--bg2);border-radius:6px;flex:1;padding:.3rem .75rem;font-size:.75rem;color:var(--text3);max-width:300px;margin:0 auto}
+.dash-body{display:grid;grid-template-columns:220px 1fr;min-height:500px}
+.dash-sidebar{background:var(--bg3);border-right:1px solid var(--border);padding:1.5rem 1rem}
+.dash-sidebar-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--lime);margin-bottom:2rem}
+.dash-nav-item{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border-radius:var(--radius-sm);font-size:.85rem;color:var(--text2);cursor:pointer;transition:all .2s;margin-bottom:.25rem}
+.dash-nav-item:hover,.dash-nav-item.active{background:rgba(227,142,51,.1);color:var(--lime)}
+.dash-nav-item .nav-icon{font-size:1rem}
+.dash-main{padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem}
+.dash-header-row{display:flex;align-items:center;justify-content:space-between}
+.dash-greeting{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700}
+.dash-xp-chip{background:rgba(227,142,51,.15);border:1px solid rgba(227,142,51,.3);color:var(--lime);padding:.3rem .85rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;font-family:'Syne Mono',monospace}
+.dash-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.dash-metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
+.dm-label{font-size:.72rem;color:var(--text3);margin-bottom:.3rem}
+.dm-val{font-family:'Syne Mono',monospace;font-size:1.2rem;font-weight:600}
+.dm-val.up{color:var(--purple)}
+.dm-val.down{color:var(--red)}
+.dm-delta{font-size:.7rem;color:var(--text3);margin-top:.15rem}
+.dash-bottom{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
+.dash-card-title{font-size:.8rem;font-weight:600;color:var(--text2);margin-bottom:.75rem}
+.mission-item{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.mission-icon{font-size:.9rem}
+.mission-text{font-size:.75rem;flex:1}
+.mission-text span{display:block;color:var(--text3);font-size:.68rem}
+.mission-prog{background:var(--bg3);border-radius:4px;height:4px;overflow:hidden;flex:1;max-width:80px}
+.mission-fill{height:100%;background:var(--lime);border-radius:4px}
+.mini-bar-wrap{display:flex;flex-direction:column;gap:.4rem;margin-top:.25rem}
+.mini-bar-row{display:flex;align-items:center;gap:.5rem;font-size:.72rem}
+.mini-bar-label{color:var(--text3);width:80px;flex-shrink:0}
+.mini-bar{background:var(--bg3);border-radius:4px;height:8px;flex:1;overflow:hidden}
+.mini-bar-fill{height:100%;border-radius:4px;transition:width 1.5s ease}
+
+/* GAMIFICATION */
+.gamification-section{padding:6rem 2rem;background:var(--bg2)}
+.gami-wrap{max-width:1200px;margin:0 auto;text-align:center}
+.xp-demo{margin:3rem auto;max-width:600px}
+.xp-counter{font-family:'Syne Mono',monospace;font-size:clamp(3rem,8vw,5rem);font-weight:400;color:var(--lime);margin-bottom:.5rem;letter-spacing:-.02em}
+.xp-label{color:var(--text3);font-size:.9rem;margin-bottom:2rem}
+.level-bar-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+.level-row{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom.75rem;margin-bottom:.75rem}
+.level-name{font-family:'Syne',sans-serif;font-weight:700}
+.level-next{color:var(--text3)}
+.big-xp-bar{background:var(--bg3);border-radius:8px;height:16px;overflow:hidden}
+.big-xp-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--orange));border-radius:8px;width:0;transition:width 2s ease}
+.badges-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;cursor:pointer;transition:transform .2s}
+.badge-item:hover{transform:translateY(-4px) scale(1.05)}
+.badge-icon{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:all .3s}
+.badge-icon.unlocked{background:linear-gradient(135deg,rgba(227,142,51,.2),rgba(178,110,241,.2));border:2px solid var(--lime)}
+.badge-icon.locked{background:var(--surface);border:2px solid var(--border);filter:grayscale(1);opacity:.4}
+.badge-name{font-size:.7rem;color:var(--text2);text-align:center;max-width:70px}
+
+/* SQUAD */
+.squad-section{padding:6rem 2rem}
+.squad-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.condo-visual{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:2rem;text-align:center}
+.condo-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.5rem;color:var(--lime)}
+.condo-street{display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;margin-bottom:1.5rem}
+.condo-house{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer;transition:transform .2s}
+.condo-house:hover{transform:translateY(-4px)}
+.house-icon{font-size:2rem;transition:font-size .3s}
+.house-name{font-size:.65rem;color:var(--text3)}
+.house-lvl{font-size:.6rem;color:var(--lime);font-weight:600}
+.condo-progress{background:var(--bg3);border-radius:var(--radius-sm);padding:1rem;margin-top:1rem}
+.condo-goal-label{font-size:.75rem;color:var(--text3);margin-bottom:.5rem}
+.condo-bar-wrap{background:var(--bg2);border-radius:4px;height:10px;overflow:hidden}
+.condo-bar-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--orange));border-radius:4px;transition:width 2s}
+.condo-stat{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text2);margin-top:.5rem}
+.squad-info{display:flex;flex-direction:column;gap:1.5rem}
+.squad-feat{display:flex;gap:1rem;align-items:flex-start}
+.squad-feat-icon{width:44px;height:44px;border-radius:12px;background:rgba(227,142,51,.1);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.squad-feat h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.squad-feat p{font-size:.9rem;color:var(--text2);line-height:1.6}
+
+/* PRICING */
+.pricing-section{padding:6rem 2rem;background:var(--bg2)}
+.pricing-wrap{max-width:900px;margin:0 auto;text-align:center}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem;text-align:left}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;transition:all .3s}
+.price-card.featured{border-color:var(--lime);background:rgba(227,142,51,.04)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--lime);color:#0e0b12;padding:.25rem .85rem;border-radius:var(--radius-pill);font-size:.75rem;font-weight:700;white-space:nowrap}
+.price-plan{font-size:.8rem;font-weight:600;color:var(--text3);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.1em}
+.price-val{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:1.5rem}
+.price-val span{font-size:1rem;font-weight:400;color:var(--text3)}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+.price-features li{font-size:.9rem;color:var(--text2);display:flex;align-items:center;gap:.5rem}
+.price-features li::before{content:'✓';color:var(--purple);font-weight:700;flex-shrink:0}
+.price-features li.no::before{content:'✗';color:var(--text3)}
+.price-features li.no{color:var(--text3)}
+.price-btn{width:100%;padding:.75rem;border-radius:var(--radius-pill);border:none;cursor:pointer;font-size:.95rem;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .2s}
+.price-btn.primary{background:var(--lime);color:#0e0b12}
+.price-btn.primary:hover{box-shadow:0 8px 24px rgba(227,142,51,.4)}
+.price-btn.secondary{background:transparent;border:1px solid var(--border2);color:var(--text)}
+.price-btn.secondary:hover{background:var(--surface2)}
+
+/* CEELITE */
+.ceelite-section{padding:6rem 2rem}
+.ceelite-wrap{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.chat-demo{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.chat-header{background:var(--bg3);padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--border)}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--orange));display:flex;align-items:center;justify-content:center;font-size:1rem}
+.chat-info strong{display:block;font-size:.9rem;font-weight:600}
+.chat-info span{font-size:.75rem;color:var(--purple)}
+.chat-messages{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;min-height:280px}
+.msg{max-width:80%;padding:.65rem .9rem;border-radius:16px;font-size:.82rem;line-height:1.5;animation:msg-in .3s ease both}
+@keyframes msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{background:var(--surface2);border:1px solid var(--border);border-radius:16px 16px 16px 4px;color:var(--text2)}
+.msg.user{background:var(--lime);color:#0e0b12;border-radius:16px 16px 4px 16px;margin-left:auto;font-weight:500}
+.msg.typing{display:flex;gap:.3rem;align-items:center;padding:.7rem}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:typing .8s ease infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-quick{padding:.75rem 1.25rem;display:flex;gap:.5rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.quick-chip{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-pill);padding:.3rem .75rem;font-size:.72rem;cursor:pointer;color:var(--text2);transition:all .2s}
+.quick-chip:hover{background:rgba(227,142,51,.1);color:var(--lime);border-color:var(--lime)}
+.chat-input-row{padding:.75rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:.5rem}
+.chat-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-pill);padding:.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--text);outline:none}
+.chat-send{background:var(--lime);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:all .2s}
+.chat-send:hover{transform:scale(1.1)}
+.ceelite-feats{display:flex;flex-direction:column;gap:1.5rem}
+.ce-feat{display:flex;gap:1rem}
+.ce-feat-dot{width:10px;height:10px;border-radius:50%;background:var(--lime);margin-top:5px;flex-shrink:0;box-shadow:0 0 0 4px rgba(227,142,51,.15)}
+.ce-feat h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.ce-feat p{font-size:.9rem;color:var(--text2);line-height:1.6}
+
+/* RANKING */
+.ranking-section{padding:6rem 2rem;background:var(--bg2)}
+.ranking-wrap{max-width:700px;margin:0 auto;text-align:center}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:1rem;margin:3rem 0 2rem}
+.podium-item{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.podium-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:3px solid transparent;transition:all .3s}
+.podium-avatar:hover{transform:scale(1.1)}
+.podium-item:nth-child(1) .podium-avatar{border-color:#C0C0C0;background:rgba(192,192,192,.1)}
+.podium-item:nth-child(2) .podium-avatar{border-color:#FFD700;background:rgba(255,215,0,.15);width:64px;height:64px;font-size:1.6rem}
+.podium-item:nth-child(3) .podium-avatar{border-color:#CD7F32;background:rgba(205,127,50,.1)}
+.podium-name{font-size:.75rem;font-weight:600}
+.podium-xp{font-family:'Syne Mono',monospace;font-size:.7rem;color:var(--text3)}
+.podium-bar{border-radius:8px 8px 0 0;width:70px;background:var(--surface)}
+.podium-item:nth-child(1) .podium-bar{height:80px}
+.podium-item:nth-child(2) .podium-bar{height:120px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.3)}
+.podium-item:nth-child(3) .podium-bar{height:60px}
+.rank-list{display:flex;flex-direction:column;gap:.5rem}
+.rank-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;display:flex;align-items:center;gap:1rem;transition:all .2s}
+.rank-item:hover{border-color:var(--border2);transform:translateX(4px)}
+.rank-item.me{border-color:var(--lime);background:rgba(227,142,51,.05)}
+.rank-num{font-family:'Syne Mono',monospace;font-size:.85rem;color:var(--text3);width:24px;flex-shrink:0;text-align:center}
+.rank-avatar{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.rank-name{flex:1;font-size:.88rem;font-weight:500}
+.rank-xp{font-family:'Syne Mono',monospace;font-size:.8rem;color:var(--lime)}
+.rank-badge{font-size:.75rem;padding:.15rem .5rem;border-radius:var(--radius-pill);background:rgba(227,142,51,.12);color:var(--lime)}
+
+/* CTA SECTION */
+.cta-section{padding:8rem 2rem;text-align:center;position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(178,110,241,.3) 0%,transparent 70%)}
+.cta-content{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-content h2{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:800;line-height:1;letter-spacing:-.04em;margin-bottom:1rem}
+.cta-content p{color:var(--text2);font-size:1.1rem;margin-bottom:2rem}
+.cta-input-group{display:flex;max-width:420px;margin:0 auto 1rem;gap:.5rem}
+.cta-email{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-pill);padding:.75rem 1.25rem;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);outline:none}
+.cta-email:focus{border-color:var(--lime)}
+.cta-note{font-size:.8rem;color:var(--text3)}
+
+/* FOOTER */
+footer{padding:3rem 2rem;border-top:1px solid var(--border);max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--lime)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{color:var(--text3);font-size:.85rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--lime)}
+.footer-copy{color:var(--text3);font-size:.8rem}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* MOBILE NAV */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);padding:5rem 2rem 2rem;flex-direction:column;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--text);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--lime)}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .onboarding-wrap,.squad-wrap,.ceelite-wrap{grid-template-columns:1fr;gap:2rem}
+  .dash-body{grid-template-columns:1fr}
+  .dash-sidebar{display:none}
+  .pricing-grid{grid-template-columns:1fr}
+  .squad-visual-order{order:-1}
+}
+@media(max-width:700px){
+  .nav-links{display:none}
+  .btn-cta-sm{display:none}
+  .nav-burger{display:block}
+  .hero{padding:7rem 1.5rem 3rem}
+  section,footer{padding:4rem 1.5rem}
+  .features-grid{grid-template-columns:1fr}
+  .dash-metrics{grid-template-columns:1fr 1fr}
+  .dash-bottom{grid-template-columns:1fr}
+  .cta-input-group{flex-direction:column}
+  .cta-email,.btn-primary{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .dash-metrics{grid-template-columns:1fr}
+  .badges-row{gap:.5rem}
+  .badge-icon{width:48px;height:48px;font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BankCe</div>
+  <ul class="nav-links">
+    <li><a href="#features">Funcionalidades</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#squad">Squad</a></li>
+    <li><a href="#pricing">Planos</a></li>
+    <li><a href="#ceelite">Ceélite</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">☀️ Claro</button>
+    <button class="btn-cta-sm" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Começar grátis →</button>
+    <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#features" onclick="toggleMenu()">Funcionalidades</a>
+  <a href="#dashboard" onclick="toggleMenu()">Dashboard</a>
+  <a href="#squad" onclick="toggleMenu()">Squad</a>
+  <a href="#pricing" onclick="toggleMenu()">Planos</a>
+  <a href="#ceelite" onclick="toggleMenu()">Ceélite</a>
+  <a href="#cta" onclick="toggleMenu()">Começar grátis →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="grid-lines"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🚀 SIRGTECH 2025 — Projeto BankCe</div>
+    <h1 class="hero-title">Banque-se.<br><span>Cresça.</span></h1>
+    <p class="hero-sub">A plataforma gamificada que ensina jovens de 16 a 22 anos a cuidar do seu dinheiro — sem medo, sem julgamento.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">Começar grátis ↓</button>
+      <button class="btn-outline" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Ver como funciona</button>
+    </div>
+  </div>
+  <div class="hero-phone">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-bar">
+          <span class="phone-greeting">Olá, João 👋</span>
+          <span class="phone-xp">⚡ 1.240 XP</span>
+        </div>
+        <div class="property-card">
+          <div class="prop-house">🏠</div>
+          <div class="prop-name">Minha Casa</div>
+          <div class="prop-level">Nível 2 — Casinha</div>
+          <div class="xp-bar-wrap"><div class="xp-bar"></div></div>
+          <div style="font-size:.65rem;color:var(--text3);margin-top:.3rem">800 XP para o próximo nível</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Entrada</div>
+            <div class="stat-val up">R$ 1.200</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Saída</div>
+            <div class="stat-val down">R$ 430</div>
+          </div>
+        </div>
+        <div class="ceelite-card">
+          <div class="ceelite-avatar">🤖</div>
+          <div class="ceelite-text">
+            <strong>Ceélite — Dica do dia</strong>
+            Você economizou 64% da sua renda este mês! Continue assim 🎯
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONBOARDING -->
+<div class="onboarding-section" id="onboarding">
+  <div class="onboarding-wrap">
+    <div class="onboarding-phone">
+      <div class="step-indicators" id="stepDots"></div>
+      <div class="onboarding-frame">
+        <!-- Screen 1: Name -->
+        <div class="ob-screen active" id="ob0">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big">🤖</div>
+            <div class="ce-bubble">Olá! Eu sou a <strong style="color:var(--lime)">Ceélite</strong> 👋 Vou te ajudar a cuidar do seu dinheiro. Qual é o seu nome?</div>
+          </div>
+          <div class="ob-progress"><span>Passo 1 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:16%"></div></div>
+          <div class="ob-title">Como posso te chamar?</div>
+          <input class="ob-input" type="text" placeholder="Seu nome aqui..." id="nameInput">
+          <button class="ob-next" style="margin-top:1rem" onclick="goStep(1)">Continuar →</button>
+        </div>
+        <!-- Screen 2: Age -->
+        <div class="ob-screen" id="ob1">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big">🤖</div>
+            <div class="ce-bubble">Ótimo! <span id="greetName" style="color:var(--lime)">Amigo</span> ✨ Quantos anos você tem?</div>
+          </div>
+          <div class="ob-progress"><span>Passo 2 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:33%"></div></div>
+          <div class="ob-title">Sua idade</div>
+          <div class="ob-pills" id="agePills">
+            <span class="ob-pill" onclick="selPill(this,'age')">16</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">17</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">18</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">19</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">20</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">21</span>
+            <span class="ob-pill" onclick="selPill(this,'age')">22+</span>
+          </div>
+          <button class="ob-next" onclick="goStep(2)">Continuar →</button>
+        </div>
+        <!-- Screen 3: Income -->
+        <div class="ob-screen" id="ob2">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big">🤖</div>
+            <div class="ce-bubble">Perfeito! Você tem alguma renda atualmente?</div>
+          </div>
+          <div class="ob-progress"><span>Passo 3 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:50%"></div></div>
+          <div class="ob-title">Sua renda</div>
+          <div class="ob-cards">
+            <div class="ob-card-opt" onclick="selCard(this,'income')">
+              <span class="ob-card-icon">💼</span>
+              <div class="ob-card-text"><strong>Sim, trabalho</strong><span>Tenho renda do emprego</span></div>
+            </div>
+            <div class="ob-card-opt" onclick="selCard(this,'income')">
+              <span class="ob-card-icon">🪙</span>
+              <div class="ob-card-text"><strong>Sim, recebo mesada</strong><span>Família me ajuda</span></div>
+            </div>
+            <div class="ob-card-opt" onclick="selCard(this,'income')">
+              <span class="ob-card-icon">🌱</span>
+              <div class="ob-card-text"><strong>Ainda não tenho</strong><span>Tudo bem! Vamos começar</span></div>
+            </div>
+          </div>
+          <button class="ob-next" onclick="goStep(3)">Continuar →</button>
+        </div>
+        <!-- Screen 4: Assets -->
+        <div class="ob-screen" id="ob3">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big">🤖</div>
+            <div class="ce-bubble">Você já tem algum bem importante? Isso nos ajuda a entender o que você já conquistou! 🏆</div>
+          </div>
+          <div class="ob-progress"><span>Passo 4 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:67%"></div></div>
+          <div class="ob-title">Seus bens</div>
+          <div class="ob-pills" id="assetPills" style="margin-top:.5rem">
+            <span class="ob-pill" onclick="togglePill(this)">🏠 Casa própria</span>
+            <span class="ob-pill" onclick="togglePill(this)">🏍️ Moto</span>
+            <span class="ob-pill" onclick="togglePill(this)">🚗 Carro</span>
+            <span class="ob-pill" onclick="togglePill(this)">🚲 Bicicleta</span>
+            <span class="ob-pill" onclick="togglePill(this)">Nenhum ainda</span>
+          </div>
+          <button class="ob-next" onclick="goStep(4)">Continuar →</button>
+        </div>
+        <!-- Screen 5: Goals -->
+        <div class="ob-screen" id="ob4">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big">🤖</div>
+            <div class="ce-bubble">O que você quer conquistar? Pode marcar mais de um! 🎯</div>
+          </div>
+          <div class="ob-progress"><span>Passo 5 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:83%"></div></div>
+          <div class="ob-title">Seus objetivos</div>
+          <div class="ob-pills" id="goalPills" style="margin-top:.5rem">
+            <span class="ob-pill" onclick="togglePill(this)">💰 Guardar dinheiro</span>
+            <span class="ob-pill" onclick="togglePill(this)">📈 Investir</span>
+            <span class="ob-pill" onclick="togglePill(this)">🛍️ Comprar algo</span>
+            <span class="ob-pill" onclick="togglePill(this)">🚫 Sair do vermelho</span>
+            <span class="ob-pill" onclick="togglePill(this)">📚 Aprender finanças</span>
+            <span class="ob-pill" onclick="togglePill(this)">🏪 Montar negócio</span>
+            <span class="ob-pill" onclick="togglePill(this)">✈️ Viajar</span>
+          </div>
+          <button class="ob-next" onclick="goStep(5)">Continuar →</button>
+        </div>
+        <!-- Screen 6: Property -->
+        <div class="ob-screen" id="ob5">
+          <div class="ob-ceelite">
+            <div class="ce-avatar-big" style="font-size:1.2rem">🎉</div>
+            <div class="ce-bubble">Quase lá! Escolha seu primeiro projeto. Ele vai crescer conforme você cuida do seu dinheiro! 🏡</div>
+          </div>
+          <div class="ob-progress"><span>Passo 6 de 6</span></div>
+          <div class="ob-prog-bar"><div class="ob-prog-fill" style="width:100%"></div></div>
+          <div class="ob-cards">
+            <div class="ob-card-opt" onclick="selCard(this,'prop')">
+              <span class="ob-card-icon">🏠</span>
+              <div class="ob-card-text"><strong>Minha Casa</strong><span>Construa seu lar dos sonhos</span></div>
+            </div>
+            <div class="ob-card-opt" onclick="selCard(this,'prop')">
+              <span class="ob-card-icon">🏪</span>
+              <div class="ob-card-text"><strong>Meu Negócio</strong><span>Crie seu próprio empreendimento</span></div>
+            </div>
+            <div class="ob-card-opt" onclick="selCard(this,'prop')">
+              <span class="ob-card-icon">🏦</span>
+              <div class="ob-card-text"><strong>Meu Banco</strong><span>Seja seu próprio banqueiro</span></div>
+            </div>
+          </div>
+          <button class="ob-next" onclick="finishOnboarding()">Começar! 🚀</button>
+        </div>
+      </div>
+    </div>
+    <div class="onboarding-info" id="obInfo">
+      <div class="ob-info-item"><div class="ob-info-num">1</div><div class="ob-info-text"><strong>Sem julgamento</strong><p>Não importa se você tem ou não tem dinheiro. O BankCe é para todo mundo que quer crescer.</p></div></div>
+      <div class="ob-info-item"><div class="ob-info-num">2</div><div class="ob-info-text"><strong>Guiado pela Ceélite</strong><p>Nossa IA cuida de tudo: organiza suas finanças, manda dicas e te motiva todo dia.</p></div></div>
+      <div class="ob-info-item"><div class="ob-info-num">3</div><div class="ob-info-text"><strong>Comece com uma meta</strong><p>Nada de "você tem zero". Você começa definindo onde quer chegar — e a gente te ajuda a chegar lá.</p></div></div>
+      <div class="ob-info-item"><div class="ob-info-num">4</div><div class="ob-info-text"><strong>Evolua sua propriedade</strong><p>Cada boa decisão financeira faz sua casa, negócio ou banco crescer. Gamificação real.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-wrap">
+    <p class="section-label reveal">Funcionalidades</p>
+    <h2 class="section-title reveal">Tudo que você precisa<br>para crescer financeiramente</h2>
+    <div class="features-grid">
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">⚡</span>
+        <h3>Sistema de XP</h3>
+        <p>Ganhe pontos por cada decisão financeira inteligente. Registre gastos, bata metas e complete missões para evoluir.</p>
+        <span class="feat-tag">Gamificação</span>
+      </div>
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">🏗️</span>
+        <h3>Propriedade evolutiva</h3>
+        <p>Sua casa, negócio ou banco cresce visualmente conforme você acumula XP. Uma metáfora poderosa para o crescimento real.</p>
+        <span class="feat-tag">Visual</span>
+      </div>
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">🎯</span>
+        <h3>Metas personalizadas</h3>
+        <p>Defina objetivos reais — uma viagem, um celular, uma reserva. A Ceélite te ajuda a traçar o caminho.</p>
+        <span class="feat-tag">Planejamento</span>
+      </div>
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">🏘️</span>
+        <h3>Squad & Condomínio</h3>
+        <p>Junte-se com amigos em um squad e poupem juntos. O condomínio virtual evolui conforme vocês colaboram.</p>
+        <span class="feat-tag">Social</span>
+      </div>
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">📚</span>
+        <h3>Educação financeira</h3>
+        <p>Módulos gratuitos sobre investimentos, orçamento e juros. No Premium, cursos e vídeo-aulas completos.</p>
+        <span class="feat-tag">Aprendizado</span>
+      </div>
+      <div class="feat-card reveal" onmousemove="cardGlow(event,this)">
+        <span class="feat-icon">🏆</span>
+        <h3>Ranking com prêmios</h3>
+        <p>Compete com amigos ou com todos. Os primeiros colocados ganham cashback, XP bônus e badges exclusivos.</p>
+        <span class="feat-tag">Competição</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="dashboard-section" id="dashboard" style="padding:6rem 2rem;max-width:100%">
+  <div style="max-width:1200px;margin:0 auto">
+    <p class="section-label reveal">Dashboard</p>
+    <h2 class="section-title reveal">Suas finanças em um<br>único lugar</h2>
+    <div class="dash-preview reveal">
+      <div class="dash-topbar">
+        <div class="dash-dot r"></div>
+        <div class="dash-dot y"></div>
+        <div class="dash-dot g"></div>
+        <div class="dash-url">bankce.app/dashboard</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-sidebar">
+          <div class="dash-sidebar-logo">BankCe</div>
+          <div class="dash-nav-item active"><span class="nav-icon">🏠</span> Home</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">🤖</span> Ceélite</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">🎯</span> Metas</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">🏆</span> Conquistas</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">📚</span> Educação</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">👥</span> Squad</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">📊</span> Ranking</div>
+          <div class="dash-nav-item" onclick="this.closest('.dash-body').querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));this.classList.add('active')"><span class="nav-icon">⚙️</span> Config.</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-header-row">
+            <div class="dash-greeting">Olá, João 👋</div>
+            <div class="dash-xp-chip">⚡ 1.240 XP</div>
+          </div>
+          <div class="dash-metrics">
+            <div class="dash-metric">
+              <div class="dm-label">Entrada este mês</div>
+              <div class="dm-val up">R$ 1.200</div>
+              <div class="dm-delta">↑ 20% vs mês passado</div>
+            </div>
+            <div class="dash-metric">
+              <div class="dm-label">Saída este mês</div>
+              <div class="dm-val down">R$ 430</div>
+              <div class="dm-delta">↓ 8% vs mês passado</div>
+            </div>
+            <div class="dash-metric">
+              <div class="dm-label">Meta atual</div>
+              <div class="dm-val" style="color:var(--lime)">64%</div>
+              <div class="dm-delta">18 dias restantes</div>
+            </div>
+          </div>
+          <div class="dash-bottom">
+            <div class="dash-card">
+              <div class="dash-card-title">Missões ativas</div>
+              <div class="mission-item">
+                <span class="mission-icon">📝</span>
+                <div class="mission-text">Registre 5 transações<span>3 de 5 feitas</span></div>
+                <div class="mission-prog"><div class="mission-fill" style="width:60%"></div></div>
+              </div>
+              <div class="mission-item">
+                <span class="mission-icon">💰</span>
+                <div class="mission-text">Economize R$ 100<span>R$ 80 guardados</span></div>
+                <div class="mission-prog"><div class="mission-fill" style="width:80%"></div></div>
+              </div>
+              <div class="mission-item">
+                <span class="mission-icon">📚</span>
+                <div class="mission-text">Leia 1 artigo<span>0 de 1 lido</span></div>
+                <div class="mission-prog"><div class="mission-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-title">Gastos por categoria</div>
+              <div class="mini-bar-wrap" id="barWrap">
+                <div class="mini-bar-row"><span class="mini-bar-label">Alimentação</span><div class="mini-bar"><div class="mini-bar-fill" style="width:0%;background:var(--lime)" data-w="72%"></div></div></div>
+                <div class="mini-bar-row"><span class="mini-bar-label">Transporte</span><div class="mini-bar"><div class="mini-bar-fill" style="width:0%;background:var(--purple)" data-w="45%"></div></div></div>
+                <div class="mini-bar-row"><span class="mini-bar-label">Lazer</span><div class="mini-bar"><div class="mini-bar-fill" style="width:0%;background:#9fb217" data-w="30%"></div></div></div>
+                <div class="mini-bar-row"><span class="mini-bar-label">Estudos</span><div class="mini-bar"><div class="mini-bar-fill" style="width:0%;background:var(--red)" data-w="18%"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMIFICATION -->
+<section class="gamification-section" id="gamification" style="padding:6rem 2rem;background:var(--bg2);max-width:100%">
+  <div class="gami-wrap">
+    <p class="section-label reveal">Gamificação</p>
+    <h2 class="section-title reveal">Evolua como um jogo.<br>Cresça de verdade.</h2>
+    <div class="xp-demo reveal">
+      <div class="xp-counter" id="xpCounter">0</div>
+      <div class="xp-label">pontos de experiência acumulados</div>
+      <div class="level-bar-wrap">
+        <div class="level-row">
+          <span class="level-name">Nível 2 — Poupador</span>
+          <span class="level-next">Próximo: Investidor Iniciante</span>
+        </div>
+        <div class="big-xp-bar"><div class="big-xp-fill" id="bigXpFill"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--text3);margin-top:.4rem"><span>1.000 XP</span><span>1.240 / 2.000 XP</span></div>
+      </div>
+    </div>
+    <div class="badges-row reveal">
+      <div class="badge-item"><div class="badge-icon unlocked">🎯</div><span class="badge-name">Primeira meta</span></div>
+      <div class="badge-item"><div class="badge-icon unlocked">🔥</div><span class="badge-name">7 dias seguidos</span></div>
+      <div class="badge-item"><div class="badge-icon unlocked">💰</div><span class="badge-name">Poupador</span></div>
+      <div class="badge-item"><div class="badge-icon unlocked">👥</div><span class="badge-name">Squad master</span></div>
+      <div class="badge-item"><div class="badge-icon locked">📈</div><span class="badge-name">Investidor</span></div>
+      <div class="badge-item"><div class="badge-icon locked">🏆</div><span class="badge-name">Top ranking</span></div>
+      <div class="badge-item"><div class="badge-icon locked">🌟</div><span class="badge-name">Nível 5</span></div>
+      <div class="badge-item"><div class="badge-icon locked">💎</div><span class="badge-name">Premium</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SQUAD -->
+<section class="squad-section" id="squad">
+  <div class="squad-wrap">
+    <div class="squad-visual-order">
+      <div class="condo-visual reveal">
+        <div class="condo-title">🏘️ Condomínio BankCe</div>
+        <div class="condo-street">
+          <div class="condo-house">
+            <div class="house-icon" style="font-size:2.5rem">🏠</div>
+            <div class="house-name">João</div>
+            <div class="house-lvl">Nível 3</div>
+          </div>
+          <div class="condo-house">
+            <div class="house-icon" style="font-size:2rem">🏚️</div>
+            <div class="house-name">Maria</div>
+            <div class="house-lvl">Nível 1</div>
+          </div>
+          <div class="condo-house">
+            <div class="house-icon" style="font-size:2.2rem">🏡</div>
+            <div class="house-name">Pedro</div>
+            <div class="house-lvl">Nível 2</div>
+          </div>
+          <div class="condo-house">
+            <div class="house-icon" style="font-size:1.8rem">🛖</div>
+            <div class="house-name">Ana</div>
+            <div class="house-lvl">Nível 1</div>
+          </div>
+        </div>
+        <div class="condo-progress">
+          <div class="condo-goal-label">Meta coletiva: Viagem para Floripa 🏖️</div>
+          <div class="condo-bar-wrap"><div class="condo-bar-fill" id="condoBar" style="width:0%"></div></div>
+          <div class="condo-stat"><span>R$ 840 arrecadados</span><span>Meta: R$ 2.000</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem;flex-wrap:wrap">
+          <button onclick="addCondoProgress()" style="background:var(--lime);color:#0e0b12;border:none;border-radius:var(--radius-pill);padding:.45rem .9rem;font-size:.78rem;cursor:pointer;font-weight:600;font-family:'DM Sans',sans-serif">+ Adicionar R$50</button>
+          <button style="background:transparent;border:1px solid var(--border2);color:var(--text2);border-radius:var(--radius-pill);padding:.45rem .9rem;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif">Convidar amigo</button>
+        </div>
+      </div>
+    </div>
+    <div class="squad-info">
+      <p class="section-label reveal">Squad</p>
+      <h2 class="section-title reveal">Cresça junto<br>com seus amigos</h2>
+      <div class="squad-feat reveal">
+        <div class="squad-feat-icon">🏘️</div>
+        <div><h4>Condomínio virtual</h4><p>Cada membro tem sua casinha no condomínio. Conforme o grupo economiza, as casas evoluem.</p></div>
+      </div>
+      <div class="squad-feat reveal">
+        <div class="squad-feat-icon">🎯</div>
+        <div><h4>Meta coletiva</h4><p>Definam uma meta em conjunto — uma viagem, um presente, um fundo de emergência. Todos contribuem.</p></div>
+      </div>
+      <div class="squad-feat reveal">
+        <div class="squad-feat-icon">🔥</div>
+        <div><h4>Motivação mútua</h4><p>Veja o progresso de cada membro, envie emojis de incentivo e compita amigavelmente no ranking interno.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CEELITE -->
+<section class="ceelite-section" id="ceelite">
+  <div class="ceelite-wrap">
+    <div class="chat-demo reveal">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-info"><strong>Ceélite</strong><span>● Online agora</span></div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">Oi! 👋 Quer registrar alguma movimentação hoje?</div>
+        <div class="msg user">Gastei R$45 no almoço</div>
+        <div class="msg bot">Anotado! 🍽️ Isso entra como <strong style="color:var(--lime)">Alimentação</strong>. Você já usou R$320 dos R$500 que separou pra comida este mês. Tá no caminho certo!</div>
+        <div class="msg user">E ganhei meu salário: R$1.200</div>
+        <div class="msg bot">Parabéns! 🎉 Recebi o seu salário de <strong style="color:var(--lime)">R$1.200</strong>. Vou separar automaticamente R$240 (20%) para sua meta de <strong style="color:var(--lime)">Fundo de Emergência</strong>. Pode contar com a gente! 💪</div>
+      </div>
+      <div class="chat-quick">
+        <span class="quick-chip" onclick="sendChip('+ Registrar gasto')">+ Registrar gasto</span>
+        <span class="quick-chip" onclick="sendChip('+ Registrar ganho')">+ Registrar ganho</span>
+        <span class="quick-chip" onclick="sendChip('Ver meu resumo')">Ver meu resumo</span>
+        <span class="quick-chip" onclick="sendChip('Me dê uma dica')">Me dê uma dica</span>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Escreva algo para a Ceélite..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="chat-send" onclick="sendMsg()">→</button>
+      </div>
+    </div>
+    <div class="ceelite-feats">
+      <p class="section-label reveal">Ceélite — IA</p>
+      <h2 class="section-title reveal">Sua assistente<br>financeira pessoal</h2>
+      <div class="ce-feat reveal"><div class="ce-feat-dot"></div><div><h4>Organiza suas finanças</h4><p>Basta relatar o que gastou e recebeu. A Ceélite categoriza, calcula e organiza tudo automaticamente.</p></div></div>
+      <div class="ce-feat reveal"><div class="ce-feat-dot"></div><div><h4>Dicas personalizadas</h4><p>Com base no seu perfil e hábitos, a Ceélite manda sugestões práticas e notificações inteligentes.</p></div></div>
+      <div class="ce-feat reveal"><div class="ce-feat-dot"></div><div><h4>Te guia dentro da plataforma</h4><p>Nunca se perdeu? A Ceélite aparece nos momentos certos para te mostrar o próximo passo.</p></div></div>
+      <div class="ce-feat reveal"><div class="ce-feat-dot"></div><div><h4>Sempre disponível</h4><p>24h por dia, 7 dias por semana. Qualquer dúvida sobre dinheiro, a Ceélite responde.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RANKING -->
+<section class="ranking-section" id="ranking">
+  <div class="ranking-wrap">
+    <p class="section-label reveal">Ranking</p>
+    <h2 class="section-title reveal">Compete, evolui,<br>ganha prêmios</h2>
+    <div class="podium reveal">
+      <div class="podium-item">
+        <div class="podium-avatar">🦊</div>
+        <div class="podium-name">Lucas</div>
+        <div class="podium-xp">4.890 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+      <div class="podium-item">
+        <div class="podium-avatar">👑</div>
+        <div class="podium-name">Fernanda</div>
+        <div class="podium-xp">6.240 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+      <div class="podium-item">
+        <div class="podium-avatar">🐯</div>
+        <div class="podium-name">Rafael</div>
+        <div class="podium-xp">3.710 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+    </div>
+    <div class="rank-list reveal">
+      <div class="rank-item"><div class="rank-num">4</div><div class="rank-avatar">🐻</div><div class="rank-name">Bianca S.</div><div class="rank-xp">3.100 XP</div></div>
+      <div class="rank-item"><div class="rank-num">5</div><div class="rank-avatar">🦁</div><div class="rank-name">Thiago M.</div><div class="rank-xp">2.890 XP</div></div>
+      <div class="rank-item me"><div class="rank-num">6</div><div class="rank-avatar">⭐</div><div class="rank-name">Você — João</div><div class="rank-xp">1.240 XP</div><div class="rank-badge">Você</div></div>
+      <div class="rank-item"><div class="rank-num">7</div><div class="rank-avatar">🐸</div><div class="rank-name">Camila R.</div><div class="rank-xp">980 XP</div></div>
+    </div>
+    <div style="margin-top:2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;text-align:left">
+      <div style="font-size:.85rem;font-weight:600;color:var(--text2);margin-bottom:1rem">🏅 Prêmios desta semana</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.85rem">
+        <div>🥇 <strong>1º lugar</strong> — <span style="color:var(--purple)">R$30 em cashback</span></div>
+        <div>🥈 <strong>2º lugar</strong> — <span style="color:var(--lime)">500 XP bônus</span></div>
+        <div>🥉 <strong>3º lugar</strong> — <span style="color:var(--text2)">Badge exclusivo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-wrap">
+    <p class="section-label reveal">Planos</p>
+    <h2 class="section-title reveal">Comece grátis,<br>evolua quando quiser</h2>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="price-plan">Gratuito</div>
+        <div class="price-val">R$0<span>/mês</span></div>
+        <ul class="price-features">
+          <li>Onboarding com Ceélite</li>
+          <li>Registro de gastos e ganhos</li>
+          <li>Propriedade evolutiva</li>
+          <li>Metas pessoais</li>
+          <li>Missões e conquistas</li>
+          <li>Módulos educativos básicos</li>
+          <li>Squad com amigos</li>
+          <li>Ranking geral</li>
+          <li class="no">Cursos em vídeo</li>
+          <li class="no">Empresas que buscam investidores</li>
+          <li class="no">Conteúdo premium da Ceélite</li>
+        </ul>
+        <button class="price-btn secondary">Começar grátis</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">⚡ Mais popular</div>
+        <div class="price-plan">Premium</div>
+        <div class="price-val">R$19<span>/mês</span></div>
+        <ul class="price-features">
+          <li>Tudo do plano gratuito</li>
+          <li>Cursos completos em vídeo</li>
+          <li>Aulas ao vivo mensais</li>
+          <li>Empresas que buscam investidores</li>
+          <li>Análises avançadas da Ceélite</li>
+          <li>Suporte prioritário</li>
+          <li>Badge exclusivo Premium</li>
+          <li>XP em dobro nas missões</li>
+          <li>Relatórios mensais detalhados</li>
+        </ul>
+        <button class="price-btn primary">Assinar Premium</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-content reveal">
+    <h2>Pronto para se<br><span style="color:var(--lime)">bancar</span>?</h2>
+    <p>Junte-se a jovens que estão transformando sua relação com o dinheiro.</p>
+    <div class="cta-input-group">
+      <input class="cta-email" type="email" placeholder="seu@email.com" id="ctaEmail">
+      <button class="btn-primary" onclick="signup()">Entrar na lista →</button>
+    </div>
+    <p class="cta-note" id="signupMsg">Sem spam. Acesso antecipado ao lançamento.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BankCe</div>
+  <div class="footer-links">
+    <a href="#">Sobre</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Termos</a>
+    <a href="#">Contato</a>
+    <a href="#">SIRGTECH</a>
+  </div>
+  <div class="footer-copy">© 2025 BankCe — Banque-se. Cresça.</div>
+</footer>
+
+<script>
+// THEME
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  document.getElementById('themeBtn').textContent=isDark?'🌙 Escuro':'☀️ Claro';
+}
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+// ONBOARDING
+let currentStep=0;
+const steps=6;
+function buildDots(){
+  const c=document.getElementById('stepDots');c.innerHTML='';
+  for(let i=0;i<steps;i++){const d=document.createElement('div');d.className='step-dot'+(i===0?' active':'');d.onclick=()=>goStep(i);c.appendChild(d)}
+}
+buildDots();
+function goStep(n){
+  if(n===1){
+    const name=document.getElementById('nameInput').value.trim();
+    if(name)document.getElementById('greetName').textContent=name;
+  }
+  const prev=document.getElementById('ob'+currentStep);
+  prev.classList.add('exit');setTimeout(()=>{prev.classList.remove('active','exit')},500);
+  currentStep=Math.min(n,steps-1);
+  setTimeout(()=>{
+    const next=document.getElementById('ob'+currentStep);
+    next.classList.add('active');
+  },100);
+  document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.toggle('active',i===currentStep)});
+}
+function selPill(el,group){
+  el.closest('.ob-pills').querySelectorAll('.ob-pill').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function togglePill(el){el.classList.toggle('sel')}
+function selCard(el,group){
+  el.closest('.ob-cards').querySelectorAll('.ob-card-opt').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function finishOnboarding(){
+  alert('🎉 Incrível! Seu perfil está pronto. No app real, você seria redirecionado para definir sua primeira meta!');
+}
+
+// SCROLL REVEAL
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      // animate bars when dashboard is visible
+      if(e.target.classList.contains('dash-preview')){
+        setTimeout(()=>{
+          document.querySelectorAll('.mini-bar-fill').forEach(b=>{b.style.width=b.dataset.w});
+        },400);
+      }
+      // animate XP counter
+      if(e.target.closest('.xp-demo')){
+        animateXP();
+      }
+      // animate condo bar
+      if(e.target.querySelector('#condoBar')){
+        setTimeout(()=>{document.getElementById('condoBar').style.width='42%'},300);
+      }
+    }
+  });
+},{threshold:0.15});
+reveals.forEach(r=>io.observe(r));
+
+// Also animate items with delay
+document.querySelectorAll('.ob-info-item').forEach((el,i)=>{
+  const observer=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){el.classList.add('vis');el.style.transitionDelay=i*0.1+'s'}
+  },{threshold:.2});
+  observer.observe(el);
+});
+
+// XP COUNTER ANIMATION
+let xpAnimated=false;
+function animateXP(){
+  if(xpAnimated)return;xpAnimated=true;
+  const target=1240;let current=0;
+  const step=Math.ceil(target/60);
+  const interval=setInterval(()=>{
+    current=Math.min(current+step,target);
+    document.getElementById('xpCounter').textContent=current.toLocaleString('pt-BR');
+    if(current>=target)clearInterval(interval);
+  },16);
+  setTimeout(()=>{document.getElementById('bigXpFill').style.width='62%'},200);
+}
+
+// CARD GLOW EFFECT
+function cardGlow(e,card){
+  const r=card.getBoundingClientRect();
+  const x=((e.clientX-r.left)/r.width*100).toFixed(1);
+  const y=((e.clientY-r.top)/r.height*100).toFixed(1);
+  card.style.setProperty('--mx',x+'%');
+  card.style.setProperty('--my',y+'%');
+}
+
+// CHAT DEMO
+const ceeliteReplies=[
+  'Ótima decisão! 💪 Continue assim e você vai bater sua meta essa semana!',
+  'Anotado! Já organizei isso no seu extrato. Quer ver um resumo do mês?',
+  'Dica: separe pelo menos 10% de cada entrada para uma reserva de emergência. Você está bem perto disso! 🎯',
+  'Você está no caminho certo! Suas economias cresceram 15% esse mês comparado ao anterior. 📈',
+  'Lembrete: você tem uma missão para completar essa semana. Que tal registrar mais 2 transações?'
+];
+let replyIdx=0;
+function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const msg=input.value.trim();
+  if(!msg)return;
+  addMsg(msg,'user');
+  input.value='';
+  addTyping();
+  setTimeout(()=>{
+    removeTyping();
+    addMsg(ceeliteReplies[replyIdx%ceeliteReplies.length],'bot');
+    replyIdx++;
+  },1200);
+}
+function sendChip(text){document.getElementById('chatInput').value=text;sendMsg()}
+function addMsg(text,type){
+  const div=document.createElement('div');
+  div.className='msg '+type;
+  div.textContent=text;
+  const c=document.getElementById('chatMessages');
+  c.appendChild(div);
+  c.scrollTop=c.scrollHeight;
+}
+function addTyping(){
+  const div=document.createElement('div');
+  div.className='msg bot typing';div.id='typing';
+  div.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  document.getElementById('chatMessages').appendChild(div);
+  document.getElementById('chatMessages').scrollTop=9999;
+}
+function removeTyping(){const t=document.getElementById('typing');if(t)t.remove()}
+
+// CONDO PROGRESS
+let condoProgress=42;
+function addCondoProgress(){
+  condoProgress=Math.min(condoProgress+2.5,100);
+  document.getElementById('condoBar').style.width=condoProgress+'%';
+  if(condoProgress>=100){
+    alert('🎉 Meta do squad batida! O condomínio vai evoluir!');
+    condoProgress=0;
+  }
+}
+
+// SIGNUP
+function signup(){
+  const email=document.getElementById('ctaEmail').value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById('signupMsg').textContent='⚠️ Por favor, insira um e-mail válido.';return;
+  }
+  document.getElementById('signupMsg').textContent='✅ Perfeito! Você está na lista. Te avisamos no lançamento!';
+  document.getElementById('signupMsg').style.color='var(--purple)';
+  document.getElementById('ctaEmail').value='';
+}
+
+// INIT CONDO BAR
+window.addEventListener('load',()=>{
+  const condoObs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting)document.getElementById('condoBar').style.width='42%';
+  },{threshold:.3});
+  const condoEl=document.getElementById('condoBar');
+  if(condoEl)condoObs.observe(condoEl.closest('.condo-visual'));
+});
+</script>
+</body>
+</html>
